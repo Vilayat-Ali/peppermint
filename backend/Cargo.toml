@@ -1,0 +1,16 @@
+[package]
+name = "peppermint-backend"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+axum = "0.7.4"
+bcrypt = "0.15.0"
+jsonwebtoken = "9.2.0"
+mongodb = "2.8.1"
+serde = { version = "1.0.197", features = ["derive"] }
+shuttle-axum = "0.41.0"
+shuttle-runtime = "0.41.0"
+tokio = "1.28.2"
+tower = "0.4.13"
+tower-http = "0.5.2"
