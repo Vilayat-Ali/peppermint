@@ -2,7 +2,14 @@ pub mod model;
 
 use mongodb::{options::ClientOptions, Client, Database};
 
+use self::model::user::UserModel;
+
 pub struct Mongo;
+
+#[derive(Debug)]
+pub enum Collection {
+    User(UserModel)
+}
 
 impl Mongo {
     pub async fn establish_conn() -> mongodb::error::Result<Database> {
@@ -12,3 +19,4 @@ impl Mongo {
         Ok(db)
     }
 }
+

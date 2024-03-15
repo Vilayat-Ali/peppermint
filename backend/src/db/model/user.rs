@@ -26,22 +26,25 @@ impl User {
     }
 }
 
+#[derive(Debug)]
 pub struct UserModel {
     collection: mongodb::Collection<User>
 }
 
-impl Model for UserModel {
+impl Model<UserModel> for UserModel {
     type Schema = User;
 
-     async fn create_collection(db: &mongodb::Database) -> Result<(), mongodb::error::Error> {
+     async fn create_collection(db: &mongodb::Database) -> Result<UserModel, mongodb::error::Error> {
         let collections = db.list_collection_names(None).await?;
 
-        if let None = collections.into_iter().find(|col_name| col_name == "user") {
-            let _ = db.create_collection("user", None).await?;
-            Ok(())
-        } else {
-            Ok(())
+        if collections.into_iter().find(|col_name| col_name == "user").is_none() {
+            db.create_collection("user", None).await?;
         }
+
+        Ok(UserModel {
+            collection: db.collection("user")
+        })
+        
     }
     
     async fn create(&self, schema: Self::Schema) -> Result<InsertOneResult, mongodb::error::Error> {

@@ -18,10 +18,10 @@ lazy_static! {
 }
 
 #[allow(async_fn_in_trait)]
-pub trait Model {
+pub trait Model<T> {
     type Schema;
 
-    async fn create_collection(db: &Database) -> Result<(), mongodb::error::Error>;
+    async fn create_collection(db: &Database) -> Result<T, mongodb::error::Error>;
     async fn create(&self, schema: Self::Schema) -> Result<InsertOneResult, mongodb::error::Error>;
     async fn create_many(&self, schema_vec: Vec<Self::Schema>) -> Result<InsertManyResult, mongodb::error::Error>;
     async fn read(&self, page: u32, limit: Option<u32>) -> mongodb::error::Result<Vec<Self::Schema>>;

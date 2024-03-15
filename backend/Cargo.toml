@@ -1,5 +1,6 @@
 [package]
 name = "peppermint-backend"
+authors = ["Syed Vilayat Ali Rizvi <vilayatcodemysite@gmail.com>"]
 version = "0.1.0"
 edition = "2021"
 
@@ -14,6 +15,5 @@ regex = "1.10.3"
 serde = { version = "1.0.197", features = ["derive"] }
 shuttle-axum = "0.41.0"
 shuttle-runtime = "0.41.0"
-tokio = "1.28.2"
 tower = "0.4.13"
-tower-http = "0.5.2"
+tower-http = { version = "0.5.2", features = ["compression-full", "cors", "trace"] }
