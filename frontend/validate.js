@@ -1,51 +1,38 @@
 const fs = require("node:fs");
 
-function getEnvFileKeys(filePath) {
-  try {
-    const contents = fs.readFileSync(filePath, "utf8");
+function getKeysFromDotEnvFiles(filePath) {
+  fs.readFile(filePath, { encoding: "utf-8" }, function (err, contents) {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    }
+
     const lines = contents.split("\n");
-    return lines.map((line) => line.trim().split("=")[0]);
-  } catch (err) {
-    console.error(err);
-  }
+    return lines.map((line) => line.split("=")[0]);
+  });
 }
 
-function validate() {
-  try {
-    const dotEnvKeys = getEnvFileKeys(".env");
-    const dotEnvExampleKeys = getEnvFileKeys(".env.example");
+function runValidationTest() {
+  const dotEnvKeys = getKeysFromDotEnvFiles(".env");
+  const dotEnvExampleKeys = getKeysFromDotEnvFiles(".env.example");
+  const missing = [];
 
-    if (!dotEnvKeys) {
-      console.error(".env file does not exists!");
-      return;
+  for (const key of dotEnvKeys) {
+    if (dotEnvExampleKeys.indexOf(key) === -1) {
+      missing.push(key);
     }
-
-    if (!dotEnvExampleKeys) {
-      console.error(".env.example file does not exists!");
-      return;
-    }
-
-    const missing = [];
-
-    for (const key of dotEnvKeys) {
-      if (dotEnvExampleKeys.indexOf(key) === -1) {
-        missing.push(key);
-      }
-    }
-
-    if (missing.length > 0) {
-      for (const missingKey of missing) {
-        console.error(
-          `[${missingKey}]: missing from .env.example but mentioned in .env`
-        );
-      }
-      return;
-    }
-
-    console.log("No problems in envs found!");
-  } catch (err) {
-    console.error(err);
   }
+
+  if (missing.length !== 0) {
+    for (const key of missing) {
+      console.error(
+        `Env ['${key}']: missing from .env.example but present in .env`
+      );
+    }
+    return;
+  }
+
+  console.log("Env files validated successfully!");
 }
 
-validate();
+runValidationTest();
