@@ -7,7 +7,10 @@ edition = "2021"
 axum = "0.7.4"
 bcrypt = "0.15.0"
 jsonwebtoken = "9.2.0"
+lazy_static = "1.4.0"
 mongodb = "2.8.1"
+nutype = { version = "0.4.0", features = ["regex"] }
+regex = "1.10.3"
 serde = { version = "1.0.197", features = ["derive"] }
 shuttle-axum = "0.41.0"
 shuttle-runtime = "0.41.0"
