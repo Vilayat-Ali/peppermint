@@ -1,6 +1,8 @@
+
+
 const page = () => {
   return (
-    <div>page</div>
+    <div className="text-white">page</div>
   )
 }
 

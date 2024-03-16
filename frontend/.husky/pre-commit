@@ -1,4 +1,0 @@
-rm -rf .next
-yarn lint
-node validate.js
-yarn build
