@@ -5,6 +5,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+# solana-sdk = "1.18.12"
 axum = "0.7.4"
 bcrypt = "0.15.0"
 jsonwebtoken = "9.2.0"
@@ -13,7 +14,7 @@ mongodb = "2.8.1"
 nutype = { version = "0.4.0", features = ["regex"] }
 regex = "1.10.3"
 serde = { version = "1.0.197", features = ["derive"] }
-shuttle-axum = "0.41.0"
-shuttle-runtime = "0.41.0"
+shuttle-axum = "0.44.0"
+shuttle-runtime = "0.44.0"
 tower = "0.4.13"
 tower-http = { version = "0.5.2", features = ["compression-full", "cors", "trace"] }
