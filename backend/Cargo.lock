@@ -1547,8 +1547,6 @@ dependencies = [
  "shuttle-runtime",
  "tower",
  "tower-http",
- "tracing",
- "tracing-subscriber",
 ]
 
 [[package]]
